@@ -1,0 +1,45 @@
+2026-05-11 08:36:46, Domain: google.com, Record Type: A, DNS Server: Google DNS (8.8.8.8), TTL: 3, Response Time: 53.28 ms, Result: ['142.250.202.174']
+2026-05-11 08:36:46, Domain: google.com, Record Type: A, DNS Server: Cloudflare DNS (1.1.1.1), TTL: 263, Response Time: 21.55 ms, Result: ['142.250.70.78']
+2026-05-11 08:36:47, Domain: google.com, Record Type: A, DNS Server: OpenDNS (208.67.222.222), TTL: 300, Response Time: 200.41 ms, Result: ['142.250.202.238']
+2026-05-11 08:39:45, Domain: google.com, Record Type: AAAA, DNS Server: Google DNS (8.8.8.8), TTL: 300, Response Time: 497.33 ms, Result: ['2a00:1450:4018:812::200e']
+2026-05-11 08:39:46, Domain: google.com, Record Type: AAAA, DNS Server: Cloudflare DNS (1.1.1.1), TTL: 256, Response Time: 870.95 ms, Result: ['2404:6800:4009:803::200e']
+2026-05-11 08:39:46, Domain: google.com, Record Type: AAAA, DNS Server: OpenDNS (208.67.222.222), TTL: 300, Response Time: 331.86 ms, Result: ['2a00:1450:4018:812::200e']
+2026-05-11 09:18:18, Domain: google.com, Record Type: A, DNS Server: Google DNS (8.8.8.8), TTL: 235, Response Time: 138.31 ms, Result: ['142.250.187.78']
+2026-05-11 09:22:17, Domain: google.com, Record Type: A, DNS Server: Google DNS (8.8.8.8), TTL: 209, Response Time: 106.09 ms, Result: ['142.250.187.78']
+2026-05-11 09:32:16, Domain: google.com, Record Type: A, DNS Server: Google DNS (8.8.8.8), TTL: 60, Response Time: 164.29 ms, Result: ['142.250.187.78']
+============================================================
+Timestamp  : 2026-05-11 09:41:41
+Domain     : google.com
+Record Type: A
+------------------------------------------------------------
+
+[Google DNS]  IP: 8.8.8.8
+  Records      : 142.250.187.78
+  TTL          : 289 seconds
+  Response Time: 141.2 ms
+
+[Cloudflare DNS]  IP: 1.1.1.1
+  Error: Query timed out
+
+[OpenDNS]  IP: 208.67.222.222
+  Error: Query timed out
+
+2026-05-08 21:51:46, Domain: google.com, Record Type: A, DNS Server: Google DNS (8.8.8.8), TTL: 300, Response Time: 267.44 ms, Result: ['142.250.187.78']
+============================================================
+Timestamp  : 2026-05-08 21:52:56
+Domain     : google.com
+Record Type: A
+------------------------------------------------------------
+
+[Google DNS]  IP: 8.8.8.8
+  Records      : 142.250.187.78
+  TTL          : 241 seconds
+  Response Time: 208.3 ms
+
+[Cloudflare DNS]  IP: 1.1.1.1
+  Error: Query timed out
+
+[OpenDNS]  IP: 208.67.222.222
+  Error: Query timed out
+
+2026-05-08 21:54:49, Domain: google.com, Record Type: A, DNS Server: Google DNS (8.8.8.8), TTL: 117, Response Time: 121.86 ms, Result: ['142.250.187.78']
