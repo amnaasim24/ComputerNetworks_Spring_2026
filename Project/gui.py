@@ -12,7 +12,7 @@ import sys
 
 #  CONFIGURATION
 
-# Save directory – change this if needed
+# Save directory
 SAVE_DIR = r"C:\Users\DC\Desktop\CN Project"
 LOG_FILE = os.path.join(SAVE_DIR, "dns_logs.txt")
 GRAPH_FILE = os.path.join(SAVE_DIR, "dns_performance_graph.png")
