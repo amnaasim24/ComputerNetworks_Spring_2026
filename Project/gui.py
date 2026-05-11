@@ -1,29 +1,16 @@
-"""
-DNS Resolver & Query Analyzer
-==============================
-Computer Networks Course Project
-Uses: dnspython, tkinter, matplotlib, time, datetime
-
-How to run:
-    pip install dnspython matplotlib
-    python dns_resolver_gui.py
-"""
-
 import tkinter as tk
 from tkinter import ttk, scrolledtext, messagebox
 import dns.resolver
 import time
 from datetime import datetime
 import matplotlib
-matplotlib.use("Agg")           # Use non-interactive backend (safe for Tkinter)
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import os
 import subprocess
 import sys
 
-# ─────────────────────────────────────────────
 #  CONFIGURATION
-# ─────────────────────────────────────────────
 
 # Save directory – change this if needed
 SAVE_DIR = r"C:\Users\DC\Desktop\CN Project"
@@ -40,17 +27,9 @@ DNS_SERVERS = {
 # Supported record types
 RECORD_TYPES = ["A", "AAAA", "MX", "NS", "CNAME"]
 
-
-# ─────────────────────────────────────────────
 #  DNS QUERY LOGIC
-# ─────────────────────────────────────────────
 
 def query_dns(domain, record_type, server_ip):
-    """
-    Query a single DNS server for a domain's record type.
-    Returns a dict with records, TTL, and response time.
-    On error, returns an error message instead of records.
-    """
     resolver = dns.resolver.Resolver()
     resolver.nameservers = [server_ip]
     resolver.lifetime = 5  # 5-second timeout per query
@@ -90,12 +69,7 @@ def query_dns(domain, record_type, server_ip):
         # Catch-all for unexpected errors
         return {"success": False, "error": str(e)}
 
-
 def run_all_queries(domain, record_type):
-    """
-    Query all three DNS servers and collect results.
-    Returns a list of result dicts (one per server).
-    """
     results = []
     for server_name, server_ip in DNS_SERVERS.items():
         result = query_dns(domain, record_type, server_ip)
@@ -104,18 +78,12 @@ def run_all_queries(domain, record_type):
         results.append(result)
     return results
 
-
-# ─────────────────────────────────────────────
 #  FILE + GRAPH HELPERS
-# ─────────────────────────────────────────────
 
 def ensure_save_dir():
-    """Create the save directory if it doesn't exist yet."""
     os.makedirs(SAVE_DIR, exist_ok=True)
 
-
 def save_log(domain, record_type, results):
-    """Append query results to the log text file."""
     ensure_save_dir()
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -137,12 +105,8 @@ def save_log(domain, record_type, results):
 
         f.write("\n")
 
-
 def save_graph(results):
-    """
-    Generate a bar chart of response times and save it as a PNG.
-    Only includes successful queries in the chart.
-    """
+
     ensure_save_dir()
 
     # Collect data for successful queries only
@@ -183,9 +147,7 @@ def save_graph(results):
     plt.close(fig)
     return True
 
-
 def open_file(path):
-    """Open a file with the default system application (cross-platform)."""
     try:
         if sys.platform == "win32":
             os.startfile(path)
@@ -196,10 +158,7 @@ def open_file(path):
     except Exception as e:
         messagebox.showerror("Error", f"Could not open file:\n{e}")
 
-
-# ─────────────────────────────────────────────
 #  MAIN GUI CLASS
-# ─────────────────────────────────────────────
 
 class DNSApp:
     def __init__(self, root):
@@ -211,12 +170,10 @@ class DNSApp:
 
         self._build_ui()
 
-    # ── UI CONSTRUCTION ──────────────────────
+    # UI CONSTRUCTION
 
     def _build_ui(self):
-        """Build all widgets and lay them out."""
-
-        # ── Color palette ──
+        # Color palette
         BG       = "#1e1e2e"
         PANEL    = "#2a2a3d"
         ACCENT   = "#7c6af7"
@@ -229,7 +186,8 @@ class DNSApp:
 
         PAD = {"padx": 12, "pady": 6}
 
-        # ── Title ──────────────────────────────
+        # Title
+
         title_frame = tk.Frame(self.root, bg=ACCENT, pady=10)
         title_frame.pack(fill="x")
 
@@ -247,7 +205,7 @@ class DNSApp:
             bg=ACCENT, fg="#ddd8ff"
         ).pack()
 
-        # ── Input Panel ────────────────────────
+        # Input Panel 
         input_frame = tk.Frame(self.root, bg=PANEL, pady=14, padx=20)
         input_frame.pack(fill="x", **PAD)
 
@@ -305,7 +263,7 @@ class DNSApp:
         )
         self.resolve_btn.pack(side="left", padx=(14, 0))
 
-        # ── Status / Fastest Server Label ──────
+        #  Status / Fastest Server Label
         self.status_var = tk.StringVar(value="Enter a domain and click Resolve.")
         status_bar = tk.Label(
             self.root, textvariable=self.status_var,
@@ -314,7 +272,7 @@ class DNSApp:
         )
         status_bar.pack(fill="x", padx=12)
 
-        # ── Output Text Area ───────────────────
+        #  Output Text Area 
         out_frame = tk.Frame(self.root, bg=BG)
         out_frame.pack(fill="both", expand=True, **PAD)
 
@@ -334,7 +292,7 @@ class DNSApp:
         )
         self.output_box.pack(fill="both", expand=True)
 
-        # ── Bottom Button Row ──────────────────
+        # Bottom Button Row 
         btn_frame = tk.Frame(self.root, bg=BG, pady=8)
         btn_frame.pack(fill="x", padx=12)
 
@@ -374,10 +332,9 @@ class DNSApp:
             font=("Consolas", 8), bg=BG, fg="#555577"
         ).pack(side="bottom", pady=(0, 4))
 
-    # ── EVENT HANDLERS ───────────────────────
+    # EVENT HANDLERS
 
     def _on_resolve(self):
-        """Called when the user clicks Resolve (or presses Enter)."""
         domain = self.domain_var.get().strip()
         record_type = self.record_var.get()
 
@@ -409,7 +366,7 @@ class DNSApp:
                 f"—  {fastest['response_time_ms']} ms"
             )
         else:
-            self.status_var.set("⚠️  All queries failed. Check domain name or network connection.")
+            self.status_var.set("All queries failed. Check domain name or network connection.")
 
         # Save log
         try:
@@ -429,7 +386,6 @@ class DNSApp:
         self.resolve_btn.config(state="normal", text="▶  Resolve")
 
     def _display_results(self, domain, record_type, results):
-        """Format and print query results into the output text area."""
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         lines = []
@@ -454,24 +410,19 @@ class DNSApp:
         self._write_output("\n".join(lines))
 
     def _write_output(self, text):
-        """Append text to the output box (handles read-only state)."""
         self.output_box.config(state="normal")
         self.output_box.insert("end", text)
         self.output_box.see("end")           # Auto-scroll to bottom
         self.output_box.config(state="disabled")
 
     def _clear_output(self):
-        """Clear the output text area and reset the status label."""
         self.output_box.config(state="normal")
         self.output_box.delete("1.0", "end")
         self.output_box.config(state="disabled")
         self.status_var.set("Output cleared. Enter a domain and click Resolve.")
         self.graph_btn.config(state="disabled")
 
-
-# ─────────────────────────────────────────────
 #  ENTRY POINT
-# ─────────────────────────────────────────────
 
 if __name__ == "__main__":
     root = tk.Tk()
